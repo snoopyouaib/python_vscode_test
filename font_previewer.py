@@ -110,9 +110,18 @@ class BDFFont:
                 break
             
             # Convertir hexa en bits
+            # Important: la longueur de hex_line détermine combien de bits on a
+            if not hex_line:
+                continue
+                
             value = int(hex_line, 16)
-            for x in range(width):
-                if value & (1 << (width - 1 - x)):
+            # Calculer le nombre de bits disponibles (4 bits par caractère hexa)
+            num_bits = len(hex_line) * 4
+            
+            # Extraire les bits de gauche à droite
+            for x in range(min(width, num_bits)):
+                # Bit le plus significatif en premier (MSB first)
+                if value & (1 << (num_bits - 1 - x)):
                     pixels[x, y] = 1
         
         return img, char_data
