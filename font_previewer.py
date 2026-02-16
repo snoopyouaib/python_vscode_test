@@ -1,5 +1,5 @@
 """
-BDF Font Previewer
+BDF Font Previewer v0.1
 ==================
 Visualisez vos polices BDF sans matériel - générez des aperçus PNG
 
