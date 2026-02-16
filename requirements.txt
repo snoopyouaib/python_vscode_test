@@ -1,0 +1,9 @@
+# Dépendances pour BDF Font Previewer
+# Installation : pip install -r requirements.txt
+
+# Manipulation d'images
+Pillow>=10.0.0
+
+# Optionnel : pour des visualisations plus avancées
+# matplotlib>=3.7.0
+# numpy>=1.24.0
