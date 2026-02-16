@@ -155,14 +155,14 @@ if __name__ == "__main__":
     # Créer le dossier previews s'il n'existe pas
     Path("previews").mkdir(exist_ok=True)
     
-    # Vérifier qu'il y a des polices
-    fonts = list(Path("fonts").glob("*.bdf"))
+    # Vérifier qu'il y a des polices (récursivement)
+    fonts = list(Path("fonts").rglob("*.bdf"))
     if not fonts:
-        print("\n⚠️  ATTENTION : Aucune police .bdf trouvée dans fonts/")
-        print("💡 Ajoutez vos fichiers .bdf dans le dossier fonts/ pour tester\n")
+        print("\n⚠️  ATTENTION : Aucune police .bdf trouvée dans fonts/ (et sous-dossiers)")
+        print("💡 Ajoutez vos fichiers .bdf dans le dossier fonts/ ou ses sous-dossiers\n")
         return
     
-    print(f"✅ {len(fonts)} police(s) trouvée(s)\n")
+    print(f"✅ {len(fonts)} police(s) trouvée(s) (incluant sous-dossiers)\n")
     
     # Exécuter les exemples
     try:

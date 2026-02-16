@@ -1,8 +1,49 @@
 # 📁 Dossier Fonts
 
-## Où trouver vos polices BDF ?
+## Organisation Recommandée
 
-Vos polices BDF se trouvent déjà sur votre Pico dans le projet `circuitpython_test` !
+Vous pouvez organiser vos polices dans des sous-dossiers par catégorie :
+
+```
+fonts/
+├── small/              # Polices petites (5-10px)
+│   ├── spleen-5x8.bdf
+│   ├── tiny-8x8.bdf
+│   └── micro.bdf
+│
+├── medium/             # Polices moyennes (11-16px)
+│   ├── helvB12.bdf
+│   ├── terminus-12.bdf
+│   └── fixed-13.bdf
+│
+├── large/              # Polices grandes (17-24px)
+│   ├── spleen-12x24.bdf
+│   └── bold-20.bdf
+│
+├── monospace/          # Polices à chasse fixe
+│   └── courier-12.bdf
+│
+├── proportional/       # Polices proportionnelles
+│   └── helvetica-12.bdf
+│
+└── README.md           # Ce fichier
+```
+
+**Le script scanne automatiquement tous les sous-dossiers !** 🔍
+
+## Structure Simple (Alternative)
+
+Vous pouvez aussi tout mettre à la racine si vous préférez :
+
+```
+fonts/
+├── spleen-5x8.bdf
+├── helvB12.bdf
+├── spleen-12x24.bdf
+└── README.md
+```
+
+## Où trouver vos polices BDF ?
 
 ### Sur votre Pico (CIRCUITPY)
 ```
@@ -10,23 +51,8 @@ CIRCUITPY:/fonts/
 └── helvB12.bdf
 ```
 
-### Copier depuis le Pico vers ce projet
-
-1. Branchez votre Pico en USB
-2. Ouvrez le lecteur `CIRCUITPY:`
-3. Copiez le dossier `fonts/` complet ici
-
-**Ou depuis votre projet GitHub :**
+### Depuis votre projet GitHub
 https://github.com/snoopyouaib/circuitpython_test/tree/main/fonts
-
-## Structure recommandée
-
-```
-fonts/
-├── helvB12.bdf          # Votre police actuelle
-├── autre_police.bdf     # Autres polices à tester
-└── README.md            # Ce fichier
-```
 
 ## Où trouver plus de polices BDF ?
 
@@ -41,7 +67,10 @@ fonts/
 3. **GNU Unifont**
    - http://unifoundry.com/unifont/
 
-4. **Vintage Computer Fonts**
+4. **Spleen** (polices bitmap modernes)
+   - https://github.com/fcambus/spleen
+
+5. **Vintage Computer Fonts**
    - https://github.com/rewtnull/amigafonts
 
 ### Créer vos propres polices
@@ -80,16 +109,40 @@ ENDCHAR
 ENDFONT
 ```
 
-## Conseils
+## Conseils par Taille de Matrice
 
-- **Taille** : Pour une matrice 64x64, privilégiez des polices de 8 à 16 pixels de haut
-- **Largeur** : Testez que votre texte tient sur 64 pixels
-- **Lisibilité** : Les polices bold (gras) sont plus visibles sur LED
-- **Mono vs Proportionnelle** : Les polices monospace sont plus faciles à calculer
+### Matrice 64x64 (votre cas)
+- **Petites** (5-8px) : Texte long, plusieurs lignes
+- **Moyennes** (10-14px) : Équilibre lisibilité/espace
+- **Grandes** (16-24px) : Mots courts, très lisible
+
+### Recommandations
+- **Bold/Gras** : Plus visible sur LED
+- **Monospace** : Plus facile à calculer l'espacement
+- **Sans-serif** : Plus lisible en petit
+
+## Utilisation du Script
+
+### Scanner tous les sous-dossiers
+```bash
+python font_previewer.py
+```
+
+### Comparer toutes les polices (même dans sous-dossiers)
+```bash
+python font_previewer.py --compare --text "PILOTE"
+```
+
+### Tester une police spécifique
+```bash
+python font_previewer.py --font fonts/small/spleen-5x8.bdf --text "TEST"
+```
 
 ## Compatibilité CircuitPython
 
-Toutes les polices BDF ne fonctionnent pas forcément avec `adafruit_bitmap_font`. Testez d'abord avec ce script Python avant de les uploader sur le Pico !
+Toutes les polices BDF ne fonctionnent pas forcément avec `adafruit_bitmap_font`. 
+
+**Testez d'abord avec ce script avant de les uploader sur le Pico !**
 
 ## Besoin d'aide ?
 

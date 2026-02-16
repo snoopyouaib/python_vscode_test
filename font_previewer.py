@@ -1,5 +1,5 @@
 """
-BDF Font Previewer v0.1
+BDF Font Previewer
 ==================
 Visualisez vos polices BDF sans matériel - générez des aperçus PNG
 
@@ -276,14 +276,14 @@ def simulate_matrix_display(font_path, text, matrix_width=64, matrix_height=64,
 def compare_fonts(font_dir="fonts", text="PILOTE 12:45", output_path="previews/comparison.png"):
     """Compare toutes les polices disponibles côte à côte"""
     
-    # Trouver tous les fichiers BDF
-    font_files = list(Path(font_dir).glob("*.bdf"))
+    # Trouver tous les fichiers BDF (récursivement dans les sous-dossiers)
+    font_files = list(Path(font_dir).rglob("*.bdf"))
     
     if not font_files:
-        print(f"❌ Aucune police trouvée dans {font_dir}")
+        print(f"❌ Aucune police trouvée dans {font_dir} (et sous-dossiers)")
         return None
     
-    print(f"📚 {len(font_files)} police(s) trouvée(s)")
+    print(f"📚 {len(font_files)} police(s) trouvée(s) (incluant sous-dossiers)")
     
     # Rendre chaque police
     previews = []
@@ -361,12 +361,20 @@ def main():
             create_preview(args.font, args.text, output_path=args.output)
     
     else:
-        # Mode par défaut : traiter toutes les polices
-        font_files = list(Path("fonts").glob("*.bdf"))
+        # Mode par défaut : traiter toutes les polices (récursivement)
+        font_files = list(Path("fonts").rglob("*.bdf"))
         
         if not font_files:
-            print("❌ Aucune police trouvée dans le dossier fonts/")
+            print("❌ Aucune police trouvée dans le dossier fonts/ (et sous-dossiers)")
             print("💡 Ajoutez vos fichiers .bdf dans le dossier fonts/")
+            print("\n📁 Structure recommandée :")
+            print("   fonts/")
+            print("   ├── small/")
+            print("   │   └── spleen-5x8.bdf")
+            print("   ├── medium/")
+            print("   │   └── helvB12.bdf")
+            print("   └── large/")
+            print("       └── spleen-12x24.bdf")
             return
         
         print(f"📚 Traitement de {len(font_files)} police(s)...\n")
